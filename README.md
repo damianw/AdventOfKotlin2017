@@ -30,6 +30,14 @@ Usage: AdventOfKotlin2016 [options]
     --help, -h
        Prints usage information
        Default: false
+
+$ build/AdventOfKotlin2017
+========
+Day 1
+========
+-> Time elapsed: 0 seconds
+-> Part 1: 1158
+-> Part 2: 1132
 ```
 
 Enjoy?
