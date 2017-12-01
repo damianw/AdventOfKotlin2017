@@ -1,0 +1,70 @@
+apply plugin: 'java'
+apply plugin: 'kotlin'
+
+buildscript {
+
+  ext.kotlin_version = '1.2.0'
+
+  repositories {
+    mavenCentral()
+  }
+
+  dependencies {
+    classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+  }
+
+}
+
+sourceSets {
+  main {
+    kotlin {
+      srcDir 'src/main/kotlin'
+    }
+    resources {
+      srcDir 'src/main/resources'
+    }
+  }
+}
+
+jar {
+  manifest {
+    attributes 'Main-Class': 'wtf.log.xmas2016.MainKt'
+  }
+  from {
+    configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+  }
+}
+
+def binaryFile = new File(buildDir, "libs/$name-binary.jar")
+task binaryJar << {
+  def jarFile = jar.archivePath
+
+  binaryFile.getParentFile().mkdirs()
+  binaryFile << "#!/bin/sh\n\nexec java -jar \$0 \"\$@\"\n\n"
+  jarFile.withInputStream { binaryFile.append it }
+
+  binaryFile.setExecutable true, false
+}
+binaryJar.dependsOn(jar)
+
+task copyBinary(type: Copy, dependsOn: 'binaryJar') {
+  from(binaryFile)
+  into buildDir
+  rename(".*", project.name)
+}
+tasks.getByName('assemble').dependsOn('copyBinary')
+
+repositories {
+  mavenCentral()
+  jcenter()
+}
+
+dependencies {
+  compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+  compile 'com.squareup.okio:okio:1.11.0'
+  compile "de.weltraumschaf.commons:jcommander:2.1.0"
+  compile 'io.reactivex:rxjava:1.2.3'
+  compile 'org.funktionale:funktionale:0.9.7'
+  compile 'com.google.guava:guava:20.0'
+}
+
