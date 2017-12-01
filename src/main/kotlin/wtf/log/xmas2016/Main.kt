@@ -6,126 +6,128 @@ import com.beust.jcommander.Parameter
 import com.beust.jcommander.ParameterException
 import rx.Observable
 import rx.Subscription
+import wtf.log.xmas2016.days.day1.Day1
 import java.lang.Exception
 import java.util.concurrent.TimeUnit
 import kotlin.system.exitProcess
 import kotlin.system.measureNanoTime
 
-private val DAY_SOLUTIONS = listOf<() -> Pair<String, String>>(
+private val SOLVERS = listOf<Solver<*, *>>(
+        Day1
 )
 
 private object ProgramArguments {
 
-  @Parameter(
-      names = arrayOf("--help", "-h"),
-      description = "Prints usage information",
-      help = true
-  )
-  var help: Boolean = false
+    @Parameter(
+            names = arrayOf("--help", "-h"),
+            description = "Prints usage information",
+            help = true
+    )
+    var help: Boolean = false
 
-  class DayValidator : IValueValidator<List<Int>> {
-    override fun validate(name: String, value: List<Int>) {
-      val errors = value.filter { DAY_SOLUTIONS.getOrNull(it - 1) == null }.distinct()
-      // the lesson here is: never build sentences in code, kids
-      when (errors.size) {
-        0 -> return
-        1 -> throw ParameterException("I haven't implemented day ${errors.single()}!")
-        2 -> throw ParameterException("I haven't implemented days ${errors[0]} or ${errors[1]}!")
-        else -> {
-          val joined = errors.joinToString(limit = errors.lastIndex, truncated = "or ${errors.last()}")
-          throw ParameterException("I haven't implemented days $joined!")
+    class DayValidator : IValueValidator<List<Int>> {
+        override fun validate(name: String, value: List<Int>) {
+            val errors = value.filter { SOLVERS.getOrNull(it - 1) == null }.distinct()
+            // the lesson here is: never build sentences in code, kids
+            when (errors.size) {
+                0 -> return
+                1 -> throw ParameterException("I haven't implemented day ${errors.single()}!")
+                2 -> throw ParameterException("I haven't implemented days ${errors[0]} or ${errors[1]}!")
+                else -> {
+                    val joined = errors.joinToString(limit = errors.lastIndex, truncated = "or ${errors.last()}")
+                    throw ParameterException("I haven't implemented days $joined!")
+                }
+            }
         }
-      }
     }
-  }
 
-  @Parameter(
-      names = arrayOf("--days", "-d"),
-      description = "Days of the advent calendar to solve",
-      validateValueWith = DayValidator::class
-  )
-  var days: List<Int>? = null
+    @Parameter(
+            names = arrayOf("--days", "-d"),
+            description = "Days of the advent calendar to solve",
+            validateValueWith = DayValidator::class
+    )
+    var days: List<Int>? = null
 
 }
 
 private object Spinner {
 
-  private val spinBars = charArrayOf('-', '\\', '|', '/', '-', '\\', '|', '/')
+    private val spinBars = charArrayOf('-', '\\', '|', '/', '-', '\\', '|', '/')
 
-  private var subscription: Subscription? = null
+    private var subscription: Subscription? = null
 
-  fun start() {
-    subscription?.unsubscribe()
-    subscription = Observable.interval(100, TimeUnit.MILLISECONDS)
-        .map { spinBars[it.toInt() % spinBars.size] }
-        .subscribe { print("\r$it ") }
-  }
+    fun start() {
+        subscription?.unsubscribe()
+        subscription = Observable.interval(100, TimeUnit.MILLISECONDS)
+                .map { spinBars[it.toInt() % spinBars.size] }
+                .subscribe { print("\r$it ") }
+    }
 
-  fun stop() {
-    subscription?.unsubscribe()
-    print('\r')
-  }
+    fun stop() {
+        subscription?.unsubscribe()
+        print('\r')
+    }
 
 }
 
-private inline fun <T> measureSeconds(block: () -> T): Pair<T, Long> {
-  var result: T? = null
-  val time = measureNanoTime {
-    result = block()
-  }
-  return (result as T) to (time / 1000000000)
+private fun <A : Any, B : Any> measureSeconds(solver: Solver<A, B>): Pair<Solution<A, B>, Long> {
+    var result: Solution<A, B>? = null
+    val time = measureNanoTime {
+        result = solver.solve()
+    }
+    return result!! to (time / 1000000000)
 }
 
 private fun String.indent(amount: Int): String = buildString {
-  for (i in 0 until amount) {
-    append(' ')
-  }
-  append(this@indent)
+    for (i in 0 until amount) {
+        append(' ')
+    }
+    append(this@indent)
 }
 
 private fun printIndented(header: String, input: String) {
-  print(header)
-  val lines = input.lines()
-  println(lines.first())
-  lines.drop(1).map { it.indent(header.length) }.forEach(::println)
+    print(header)
+    val lines = input.lines()
+    println(lines.first())
+    lines.drop(1).map { it.indent(header.length) }.forEach(::println)
 }
 
 fun main(args: Array<String>) {
-  val commander = JCommander(ProgramArguments).apply {
-    setProgramName("AdventOfKotlin2017")
-  }
+    val commander = JCommander(ProgramArguments).apply {
+        setProgramName("AdventOfKotlin2017")
+    }
 
-  fun exitWithUsage(message: String? = null): Nothing {
-    message?.let { System.err.println("[Error] $it") }
-    commander.usage()
-    exitProcess(1)
-  }
+    fun exitWithUsage(message: String? = null): Nothing {
+        message?.let { System.err.println("[Error] $it") }
+        commander.usage()
+        exitProcess(1)
+    }
 
-  try {
-    commander.parse(*args)
-  } catch (e: Exception) {
-    exitWithUsage(e.message)
-  }
+    try {
+        commander.parse(*args)
+    } catch (e: Exception) {
+        exitWithUsage(e.message)
+    }
 
-  if (ProgramArguments.help) {
-    exitWithUsage()
-  }
+    if (ProgramArguments.help) {
+        exitWithUsage()
+    }
 
-  val days = ProgramArguments.days ?: 1..DAY_SOLUTIONS.size
+    val days = ProgramArguments.days ?: 1..SOLVERS.size
 
-  for (day in days) {
-    val function = DAY_SOLUTIONS[day - 1] ?: continue
-    println("========")
-    println("Day $day")
-    println("========")
-    Spinner.start()
-    val (result, time) = measureSeconds(function)
-    val (part1, part2) = result
-    Spinner.stop()
-    println("-> Time elapsed: $time seconds")
-    printIndented("-> Part 1: ", part1)
-    printIndented("-> Part 2: ", part2)
-    println()
-  }
+    for (day in days) {
+        val solver = SOLVERS[day - 1] ?: continue
+        println("========")
+        println("Day $day")
+        println("========")
+        Spinner.start()
+        val (result, time) = measureSeconds(solver)
+        val (part1, part2) = result
+        Spinner.stop()
+        println("-> Time elapsed: $time seconds")
+        printIndented("-> Part 1: ", part1?.toString() ?: "<unsolved>")
+        printIndented("-> Part 2: ", part2?.toString() ?: "<unsolved>")
+        println()
+    }
 
 }

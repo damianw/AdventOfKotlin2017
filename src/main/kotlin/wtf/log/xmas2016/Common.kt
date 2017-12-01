@@ -19,4 +19,3 @@ fun openResource(name: String): BufferedReader = ClassLoader.getSystemResourceAs
  * Convenience function for opening a resource as a [Source]
  */
 fun openResourceAsSource(name: String): Source = ClassLoader.getSystemResource(name).openStream().asSource()
-
