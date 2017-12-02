@@ -38,6 +38,14 @@ Day 1
 -> Time elapsed: 0 seconds
 -> Part 1: 1158
 -> Part 2: 1132
+
+========
+Day 2
+========
+-> Time elapsed: 0 seconds
+-> Part 1: 45972
+-> Part 2: 326
+
 ```
 
 Enjoy?
