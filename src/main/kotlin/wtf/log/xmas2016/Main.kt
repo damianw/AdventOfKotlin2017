@@ -7,13 +7,15 @@ import com.beust.jcommander.ParameterException
 import rx.Observable
 import rx.Subscription
 import wtf.log.xmas2016.days.day1.Day1
+import wtf.log.xmas2016.days.day2.Day2
 import java.lang.Exception
 import java.util.concurrent.TimeUnit
 import kotlin.system.exitProcess
 import kotlin.system.measureNanoTime
 
 private val SOLVERS = listOf<Solver<*, *>?>(
-        Day1
+        Day1,
+        Day2
 )
 
 private object ProgramArguments {
