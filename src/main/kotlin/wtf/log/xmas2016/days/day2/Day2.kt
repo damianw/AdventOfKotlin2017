@@ -21,8 +21,7 @@ object Day2 : Solver<Int, Int> {
     // I love "streamy" solutions :)
     private fun part2(): Int = readInput().sumBy { row ->
         row.asSequence()
-                .withIndex()
-                .map { (index, firstValue) ->
+                .mapIndexed { index, firstValue ->
                     row.asSequence()
                             .drop(index + 1)
                             .firstOrNull { firstValue % it == 0 }
