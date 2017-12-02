@@ -1,4 +1,4 @@
-package wtf.log.xmas2016.util
+package wtf.log.xmas2017.util
 
 import okio.Okio
 import okio.Sink

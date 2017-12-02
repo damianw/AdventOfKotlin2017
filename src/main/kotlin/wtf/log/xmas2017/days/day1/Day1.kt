@@ -1,8 +1,8 @@
-package wtf.log.xmas2016.days.day1
+package wtf.log.xmas2017.days.day1
 
-import wtf.log.xmas2016.Solution
-import wtf.log.xmas2016.Solver
-import wtf.log.xmas2016.openResource
+import wtf.log.xmas2017.Solution
+import wtf.log.xmas2017.Solver
+import wtf.log.xmas2017.openResource
 
 object Day1 : Solver<Int, Int> {
 

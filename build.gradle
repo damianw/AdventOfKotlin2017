@@ -28,7 +28,7 @@ sourceSets {
 
 jar {
   manifest {
-    attributes 'Main-Class': 'wtf.log.xmas2016.MainKt'
+    attributes 'Main-Class': 'wtf.log.xmas2017.MainKt'
   }
   from {
     configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }

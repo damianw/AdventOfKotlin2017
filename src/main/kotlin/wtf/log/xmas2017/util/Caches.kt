@@ -1,4 +1,4 @@
-package wtf.log.xmas2016.util
+package wtf.log.xmas2017.util
 
 import com.google.common.cache.CacheBuilder
 import com.google.common.cache.CacheLoader

@@ -1,7 +1,7 @@
-package wtf.log.xmas2016
+package wtf.log.xmas2017
 
 import okio.Source
-import wtf.log.xmas2016.util.asSource
+import wtf.log.xmas2017.util.asSource
 import java.io.BufferedReader
 
 /**

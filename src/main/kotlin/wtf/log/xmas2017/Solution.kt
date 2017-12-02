@@ -1,4 +1,4 @@
-package wtf.log.xmas2016
+package wtf.log.xmas2017
 
 /**
  * A solver for a problem.
