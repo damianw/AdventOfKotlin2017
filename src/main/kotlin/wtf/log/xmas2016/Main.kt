@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit
 import kotlin.system.exitProcess
 import kotlin.system.measureNanoTime
 
-private val SOLVERS = listOf<Solver<*, *>>(
+private val SOLVERS = listOf<Solver<*, *>?>(
         Day1
 )
 
