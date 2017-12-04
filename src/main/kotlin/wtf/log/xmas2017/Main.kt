@@ -23,7 +23,7 @@ private val SOLVERS = listOf<Solver<*, *>?>(
 private object ProgramArguments {
 
     @Parameter(
-            names = arrayOf("--help", "-h"),
+            names = ["--help", "-h"],
             description = "Prints usage information",
             help = true
     )
@@ -46,9 +46,9 @@ private object ProgramArguments {
     }
 
     @Parameter(
-            names = arrayOf("--days", "-d"),
+            names = ["--days", "-d"],
             description = "Days of the advent calendar to solve",
-            validateValueWith = DayValidator::class
+            validateValueWith = [DayValidator::class]
     )
     var days: List<Int>? = null
 
@@ -98,7 +98,7 @@ private fun printIndented(header: String, input: String) {
 
 fun main(args: Array<String>) {
     val commander = JCommander(ProgramArguments).apply {
-        setProgramName("AdventOfKotlin2017")
+        programName = "AdventOfKotlin2017"
     }
 
     fun exitWithUsage(message: String? = null): Nothing {
