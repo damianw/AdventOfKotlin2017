@@ -4,6 +4,7 @@ import com.google.common.collect.HashBasedTable
 import com.google.common.collect.Table
 import wtf.log.xmas2017.Solution
 import wtf.log.xmas2017.Solver
+import wtf.log.xmas2017.util.set
 import kotlin.math.abs
 import kotlin.math.sqrt
 
@@ -29,10 +30,6 @@ object Day3 : Solver<Int, Int> {
         UP,
         RIGHT,
         DOWN
-    }
-
-    private operator fun <R, C, V> Table<R, C, V>.set(rowKey: R, columnKey: C, value: V) {
-        put(rowKey, columnKey, value)
     }
 
     private fun Table<Int, Int, Int>.sumNeighbors(rowKey: Int, columnKey: Int): Int = sequenceOf(
