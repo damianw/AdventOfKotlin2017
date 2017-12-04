@@ -61,10 +61,10 @@ repositories {
 
 dependencies {
   compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-  compile 'com.squareup.okio:okio:1.11.0'
-  compile "de.weltraumschaf.commons:jcommander:2.1.0"
   compile 'io.reactivex:rxjava:1.2.3'
-  compile 'org.funktionale:funktionale:0.9.7'
-  compile 'com.google.guava:guava:23.5-jre'
+  compile "com.squareup.okio:okio:1.13.0"
+  compile "com.beust:jcommander:1.72"
+  compile "org.funktionale:funktionale:1.2"
+  compile "com.google.guava:guava:23.5-jre"
 }
 
