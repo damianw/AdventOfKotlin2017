@@ -4,8 +4,8 @@ import com.beust.jcommander.IValueValidator
 import com.beust.jcommander.JCommander
 import com.beust.jcommander.Parameter
 import com.beust.jcommander.ParameterException
-import rx.Observable
-import rx.Subscription
+import io.reactivex.Flowable
+import io.reactivex.disposables.Disposable
 import wtf.log.xmas2017.days.day1.Day1
 import wtf.log.xmas2017.days.day2.Day2
 import wtf.log.xmas2017.days.day3.Day3
@@ -58,17 +58,17 @@ private object Spinner {
 
     private val spinBars = charArrayOf('-', '\\', '|', '/', '-', '\\', '|', '/')
 
-    private var subscription: Subscription? = null
+    private var subscription: Disposable? = null
 
     fun start() {
-        subscription?.unsubscribe()
-        subscription = Observable.interval(100, TimeUnit.MILLISECONDS)
+        subscription?.dispose()
+        subscription = Flowable.interval(100, TimeUnit.MILLISECONDS)
                 .map { spinBars[it.toInt() % spinBars.size] }
                 .subscribe { print("\r$it ") }
     }
 
     fun stop() {
-        subscription?.unsubscribe()
+        subscription?.dispose()
         print('\r')
     }
 
