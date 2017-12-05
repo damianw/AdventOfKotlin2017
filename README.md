@@ -52,6 +52,20 @@ Day 3
 -> Time elapsed: 0 seconds
 -> Part 1: 326
 -> Part 2: 363010
+
+========
+Day 4
+========
+-> Time elapsed: 0 seconds
+-> Part 1: 466
+-> Part 2: 251
+
+========
+Day 5
+========
+-> Time elapsed: 0 seconds
+-> Part 1: 358131
+-> Part 2: 25558839
 ```
 
 Enjoy?
