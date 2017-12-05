@@ -10,6 +10,7 @@ import wtf.log.xmas2017.days.day1.Day1
 import wtf.log.xmas2017.days.day2.Day2
 import wtf.log.xmas2017.days.day3.Day3
 import wtf.log.xmas2017.days.day4.Day4
+import wtf.log.xmas2017.days.day5.Day5
 import java.lang.Exception
 import java.util.concurrent.TimeUnit
 import kotlin.system.exitProcess
@@ -19,7 +20,8 @@ private val SOLVERS = listOf<Solver<*, *>?>(
     Day1,
     Day2,
     Day3,
-    Day4
+    Day4,
+    Day5
 )
 
 private object ProgramArguments {
