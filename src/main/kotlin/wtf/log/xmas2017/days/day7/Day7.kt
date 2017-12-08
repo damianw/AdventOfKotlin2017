@@ -84,9 +84,7 @@ object Day7 : Solver<String, Int> {
     }
 
     private fun Tree.findIncorrectNode(): Tree.Node = generateSequence(root) { node ->
-        val child = node.findIncorrectChild()
-        println("Child: ${child?.name}, ${child?.cumulativeWeight}")
-        child
+        node.findIncorrectChild()
     }.last()
 
     private fun Tree.Node.findIncorrectChild(): Tree.Node? {
@@ -98,7 +96,6 @@ object Day7 : Solver<String, Int> {
             counts[weight] = current + 1
             weights[weight] = child
         }
-        println("Counts: $counts, $weights")
         return counts.entries.firstOrNull { it.value == 1 }?.key?.let(weights::get)
     }
 
