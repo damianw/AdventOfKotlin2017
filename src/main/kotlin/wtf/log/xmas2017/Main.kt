@@ -14,7 +14,9 @@ import wtf.log.xmas2017.days.day5.Day5
 import wtf.log.xmas2017.days.day6.Day6
 import wtf.log.xmas2017.days.day7.Day7
 import wtf.log.xmas2017.days.day8.Day8
+import wtf.log.xmas2017.util.toPrettyFormat
 import java.lang.Exception
+import java.time.Duration
 import java.util.concurrent.TimeUnit
 import kotlin.system.exitProcess
 import kotlin.system.measureNanoTime
@@ -84,12 +86,13 @@ private object Spinner {
 
 }
 
-private fun <A : Any, B : Any> measureSeconds(solver: Solver<A, B>): Pair<Solution<A, B>, Long> {
+private fun <A : Any, B : Any> measureDuration(solver: Solver<A, B>): Pair<Solution<A, B>, Duration> {
     var result: Solution<A, B>? = null
-    val time = measureNanoTime {
+    val nanos = measureNanoTime {
         result = solver.solve()
     }
-    return result!! to (time / 1000000000)
+    val duration = Duration.ofNanos(nanos)
+    return result!! to duration
 }
 
 private fun String.indent(amount: Int): String = buildString {
@@ -135,10 +138,10 @@ fun main(args: Array<String>) {
         println("Day $day")
         println("========")
         Spinner.start()
-        val (result, time) = measureSeconds(solver)
+        val (result, duration) = measureDuration(solver)
         val (part1, part2) = result
         Spinner.stop()
-        println("-> Time elapsed: $time seconds")
+        println("-> Time elapsed: ${duration.toPrettyFormat()}")
         printIndented("-> Part 1: ", part1?.toString() ?: "<unsolved>")
         printIndented("-> Part 2: ", part2?.toString() ?: "<unsolved>")
         println()
