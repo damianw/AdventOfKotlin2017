@@ -1,4 +1,4 @@
-package wtf.log.xmas2017.days.Day10
+package wtf.log.xmas2017.days.day10
 
 import wtf.log.xmas2017.Solution
 import wtf.log.xmas2017.Solver
