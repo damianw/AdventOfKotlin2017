@@ -8,6 +8,7 @@ import io.reactivex.Flowable
 import io.reactivex.disposables.Disposable
 import wtf.log.xmas2017.days.day10.Day10
 import wtf.log.xmas2017.days.day1.Day1
+import wtf.log.xmas2017.days.day11.Day11
 import wtf.log.xmas2017.days.day2.Day2
 import wtf.log.xmas2017.days.day3.Day3
 import wtf.log.xmas2017.days.day4.Day4
@@ -33,7 +34,8 @@ private val SOLVERS = listOf<Solver<*, *>?>(
         Day7,
         Day8,
         Day9,
-        Day10
+        Day10,
+        Day11
 )
 
 private object ProgramArguments {
