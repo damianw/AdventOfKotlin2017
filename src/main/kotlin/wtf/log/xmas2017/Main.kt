@@ -6,6 +6,7 @@ import com.beust.jcommander.Parameter
 import com.beust.jcommander.ParameterException
 import io.reactivex.Flowable
 import io.reactivex.disposables.Disposable
+import wtf.log.xmas2017.days.Day10.Day10
 import wtf.log.xmas2017.days.day1.Day1
 import wtf.log.xmas2017.days.day2.Day2
 import wtf.log.xmas2017.days.day3.Day3
@@ -31,7 +32,8 @@ private val SOLVERS = listOf<Solver<*, *>?>(
         Day6,
         Day7,
         Day8,
-        Day9
+        Day9,
+        Day10
 )
 
 private object ProgramArguments {
