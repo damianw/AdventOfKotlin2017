@@ -14,6 +14,7 @@ import wtf.log.xmas2017.days.day5.Day5
 import wtf.log.xmas2017.days.day6.Day6
 import wtf.log.xmas2017.days.day7.Day7
 import wtf.log.xmas2017.days.day8.Day8
+import wtf.log.xmas2017.days.day9.Day9
 import wtf.log.xmas2017.util.toPrettyFormat
 import java.lang.Exception
 import java.time.Duration
@@ -29,7 +30,8 @@ private val SOLVERS = listOf<Solver<*, *>?>(
         Day5,
         Day6,
         Day7,
-        Day8
+        Day8,
+        Day9
 )
 
 private object ProgramArguments {
