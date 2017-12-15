@@ -9,3 +9,9 @@ inline fun CharArray.copyTo(
 ) {
     System.arraycopy(this, sourcePosition, destination, destinationPosition, length)
 }
+
+inline fun ByteArray.setAll(generator: (Int) -> Byte) {
+    for (i in indices) {
+        set(i, generator(i))
+    }
+}
