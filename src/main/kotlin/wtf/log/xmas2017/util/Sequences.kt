@@ -10,3 +10,8 @@ fun <T, R> Sequence<T>.scan(initial: R, operation: (R, T) -> R): Sequence<R> = b
     }
     yield(accumulator)
 }
+
+inline fun <T, C> Sequence<T>.collectTo(collector: C, operation: C.(T) -> Unit): C {
+    forEach { collector.operation(it) }
+    return collector
+}
