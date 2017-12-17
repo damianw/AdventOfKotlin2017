@@ -37,7 +37,7 @@ object Day14 : Solver<Int, Int> {
             val current = matrix[index]
             val mask = (0x1 shl offset)
             val enabled = current or mask
-            matrix[index ] = if (value) enabled else enabled xor mask
+            matrix[index] = if (value) enabled else enabled xor mask
         }
 
         operator fun get(x: Int, y: Int): Boolean {
