@@ -11,6 +11,7 @@ import wtf.log.xmas2017.days.day1.Day1
 import wtf.log.xmas2017.days.day11.Day11
 import wtf.log.xmas2017.days.day12.Day12
 import wtf.log.xmas2017.days.day13.Day13
+import wtf.log.xmas2017.days.day14.Day14
 import wtf.log.xmas2017.days.day16.Day16
 import wtf.log.xmas2017.days.day2.Day2
 import wtf.log.xmas2017.days.day3.Day3
@@ -41,7 +42,7 @@ private val SOLVERS = listOf<Solver<*, *>?>(
         Day11,
         Day12,
         Day13,
-        null,
+        Day14,
         null,
         Day16
 )
