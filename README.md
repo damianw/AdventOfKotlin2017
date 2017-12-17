@@ -143,6 +143,13 @@ Day 16
 -> Time elapsed: 61 millis, 267 micros, 477 nanos
 -> Part 1: dcmlhejnifpokgba
 -> Part 2: ifocbejpdnklamhg
+
+========
+Day 17
+========
+-> Time elapsed: 558 millis, 234 micros, 303 nanos
+-> Part 1: 1244
+-> Part 2: 11162912
 ```
 
 Enjoy?
