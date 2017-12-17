@@ -9,10 +9,8 @@ object Day15 : Solver<Int, Int> {
 
         private var state: Long = seed
 
-        private fun step(): Long {
-            val step = (state * factor) % Int.MAX_VALUE
-            state = step
-            return step
+        private fun step() {
+            state = (state * factor) % Int.MAX_VALUE
         }
 
         fun next(): Long {
@@ -22,25 +20,27 @@ object Day15 : Solver<Int, Int> {
 
     }
 
-    private fun part1(): Int {
-        val generatorA = Generator(factor = 16807, divisor = 1, seed = 289)
-        val generatorB = Generator(factor = 48271, divisor = 1, seed = 629)
-        return (0 until 40_000_000).sumBy {
-            val a = generatorA.next() and 0xFFFF
-            val b = generatorB.next() and 0xFFFF
-            if (a == b) 1 else 0
-        }
+    private fun judge(
+            generatorA: Generator,
+            generatorB: Generator,
+            iterations: Int
+    ): Int = (0 until iterations).sumBy {
+        val a = generatorA.next() and 0xFFFF
+        val b = generatorB.next() and 0xFFFF
+        if (a == b) 1 else 0
     }
 
-    private fun part2(): Int {
-        val generatorA = Generator(factor = 16807, divisor = 4, seed = 289)
-        val generatorB = Generator(factor = 48271, divisor = 8, seed = 629)
-        return (0 until 5_000_000).sumBy {
-            val a = generatorA.next() and 0xFFFF
-            val b = generatorB.next() and 0xFFFF
-            if (a == b) 1 else 0
-        }
-    }
+    private fun part1(): Int = judge(
+            generatorA = Generator(factor = 16807, divisor = 1, seed = 289),
+            generatorB = Generator(factor = 48271, divisor = 1, seed = 629),
+            iterations = 40_000_000
+    )
+
+    private fun part2(): Int = judge(
+            generatorA = Generator(factor = 16807, divisor = 4, seed = 289),
+            generatorB = Generator(factor = 48271, divisor = 8, seed = 629),
+            iterations = 5_000_000
+    )
 
     override fun solve() = Solution(
             part1 = part1(),
