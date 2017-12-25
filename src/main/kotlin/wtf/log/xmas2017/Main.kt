@@ -18,6 +18,7 @@ import wtf.log.xmas2017.days.day17.Day17
 import wtf.log.xmas2017.days.day19.Day19
 import wtf.log.xmas2017.days.day2.Day2
 import wtf.log.xmas2017.days.day20.Day20
+import wtf.log.xmas2017.days.day21.Day21
 import wtf.log.xmas2017.days.day3.Day3
 import wtf.log.xmas2017.days.day4.Day4
 import wtf.log.xmas2017.days.day5.Day5
@@ -52,7 +53,8 @@ private val SOLVERS = listOf<Solver<*, *>?>(
         Day17,
         null,
         Day19,
-        Day20
+        Day20,
+        Day21
 )
 
 private object ProgramArguments {
