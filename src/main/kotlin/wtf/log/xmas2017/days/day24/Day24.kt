@@ -35,28 +35,22 @@ object Day24 : Solver<Int, Int> {
         return ImmutableMultimap.copyOf(result)
     }
 
-    private fun ImmutableMultimap<Int, Component>.paths(start: Int): Sequence<Sequence<Component>> {
-        return get(start).asSequence().flatMap { component ->
-            val next = if (component.start == start) {
-                component.end
-            } else {
-                component.start
+    private fun ImmutableMultimap<Int, Component>.paths(start: Int): Sequence<Sequence<Component>> = get(start)
+            .asSequence()
+            .flatMap { component ->
+                val bin = alter {
+                    remove(component.start, component)
+                    remove(component.end, component)
+                }
+                val next = if (component.start == start) component.end else component.start
+                sequenceOf(sequenceOf(component)) + bin.paths(next).map { sequenceOf(component) + it }
             }
-            val bin = alter {
-                remove(component.start, component)
-                remove(component.end, component)
-            }
-            sequenceOf(sequenceOf(component)) + bin.paths(next).map { sequenceOf(component) + it }
-        }
-    }
 
     private fun <T> Sequence<Sequence<T>>.toLists(): List<List<T>> = map { it.toList() }.toList()
 
     private fun part1(paths: List<List<Component>>): Int {
         return paths.asSequence()
-                .map { path ->
-                    path.sumBy { it.strength }
-                }
+                .map { path -> path.sumBy { it.strength } }
                 .max()!!
     }
 
