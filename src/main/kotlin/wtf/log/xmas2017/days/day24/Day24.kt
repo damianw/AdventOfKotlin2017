@@ -5,7 +5,6 @@ import com.google.common.collect.ImmutableMultimap
 import wtf.log.xmas2017.Solution
 import wtf.log.xmas2017.Solver
 import wtf.log.xmas2017.openResource
-import wtf.log.xmas2017.util.alter
 
 object Day24 : Solver<Int, Int> {
 
@@ -35,15 +34,17 @@ object Day24 : Solver<Int, Int> {
         return ImmutableMultimap.copyOf(result)
     }
 
-    private fun ImmutableMultimap<Int, Component>.paths(start: Int): Sequence<Sequence<Component>> = get(start)
+    private fun ImmutableMultimap<Int, Component>.paths(
+            start: Int,
+            excluded: Set<Component> = emptySet()
+    ): Sequence<Sequence<Component>> = get(start)
             .asSequence()
+            .filter { it !in excluded }
             .flatMap { component ->
-                val bin = alter {
-                    remove(component.start, component)
-                    remove(component.end, component)
-                }
+                val nextExcluded = excluded + component
                 val next = if (component.start == start) component.end else component.start
-                sequenceOf(sequenceOf(component)) + bin.paths(next).map { sequenceOf(component) + it }
+                val current = sequenceOf(component)
+                sequenceOf(current) + paths(next, nextExcluded).map { current + it }
             }
 
     private fun <T> Sequence<Sequence<T>>.toLists(): List<List<T>> = map { it.toList() }.toList()
