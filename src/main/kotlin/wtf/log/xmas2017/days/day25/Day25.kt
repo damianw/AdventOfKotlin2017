@@ -80,12 +80,6 @@ object Day25 : Solver<Int, String> {
                     - Continue with state $STATE.
             """.trimIndent())
 
-            private fun offsetOf(direction: String): Int = when (direction) {
-                "left" -> -1
-                "right" -> +1
-                else -> throw IllegalArgumentException("Unknown direction: $direction")
-            }
-
             fun parse(input: String): Machine {
                 val split = input.trim().split("\n\n")
                 val (startState, iterations) = PATTERN_HEADER.matchEntire(split.first())!!.destructured
